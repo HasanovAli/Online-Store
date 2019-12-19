@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
+from secret import EmailConfig
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -131,3 +134,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# To receive emails in console
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_HOST = EmailConfig.EMAIL_HOST
+EMAIL_HOST_USER = EmailConfig.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = EmailConfig.EMAIL_HOST_PASSWORD
+EMAIL_PORT = EmailConfig.EMAIL_PORT
+EMAIL_USE_TLS = EmailConfig.EMAIL_USE_TLS
+
