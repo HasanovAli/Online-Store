@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 
 from .forms import OrderCreateForm
 from .models import OrderItem
@@ -20,7 +21,10 @@ def order_create(request):
             bucket.clear()
             # start of async task
             order_created.delay(order.id)
-            return render(request, 'orders/order/created.html', {'order': order})
+            # saving the order in the session
+            request.session['order_id'] = order.id
+
+            return redirect(reverse('payment:process'))
     else:
         form = OrderCreateForm()
     return render(request, 'orders/order/create.html', {'form': form, 'bucket': bucket})

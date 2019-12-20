@@ -12,7 +12,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
-from secret import EmailConfig
+from secret import EmailConfig, BraintreeConfig
+from braintree import Configuration, Environment
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'bucket.apps.BucketConfig',
     'orders.apps.OrdersConfig',
+    'payment.apps.PaymentConfig',
 ]
 
 MIDDLEWARE = [
@@ -144,4 +146,18 @@ EMAIL_HOST_USER = EmailConfig.EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = EmailConfig.EMAIL_HOST_PASSWORD
 EMAIL_PORT = EmailConfig.EMAIL_PORT
 EMAIL_USE_TLS = EmailConfig.EMAIL_USE_TLS
+
+
+# Braintree settings
+BRAINTREE_MERCHANT_ID = BraintreeConfig.BRAINTREE_MERCHANT_ID
+BRAINTREE_PUBLIC_KEY = BraintreeConfig.BRAINTREE_PUBLIC_KEY
+BRAINTREE_PRIVATE_KEY = BraintreeConfig.BRAINTREE_PRIVATE_KEY
+
+# for production use Environment.Production instead of Environment.Sandbox
+Configuration.configure(
+    Environment.Sandbox,
+    BRAINTREE_MERCHANT_ID,
+    BRAINTREE_PUBLIC_KEY,
+    BRAINTREE_PRIVATE_KEY
+)
 
