@@ -1,5 +1,5 @@
 django==2.2.8
 pillow==6.2.0
-celery==4.3.0
+celery==5.2.2
 flower==0.9.3
 braintree==3.45.0
